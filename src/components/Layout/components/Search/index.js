@@ -3,6 +3,8 @@ import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
 import { faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import HeadlessTippy from '@tippyjs/react/headless'; // different import path!
+
+import * as searchSercives from '~/apiSercives/searchSercives';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -26,18 +28,21 @@ function Search() {
             setSearchResult([]);
             return;
         }
-        setLoading(true);
+
+        const fetchApi = async () => {
+            setLoading(true);
+
+            const result = await searchSercives.search(debounced);
+            setSearchResult(result);
+
+            setLoading(false);
+        };
 
         //encodeURIComponent :mã hóa kí tự nhập vào chuẩn
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
-            .then((res) => res.json())
-            .then((res) => {
-                setSearchResult(res.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                setLoading(false);
-            });
+
+        // thư viện axios thay thế cho fetch
+
+        fetchApi();
     }, [debounced]);
 
     const handleClear = () => {
