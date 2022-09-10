@@ -4,7 +4,7 @@ import styles from './Search.module.scss';
 import { faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import HeadlessTippy from '@tippyjs/react/headless'; // different import path!
 
-import * as searchSercives from '~/apiSercives/searchSercives';
+import * as searchSercives from '~/sercives/searchSercive';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
